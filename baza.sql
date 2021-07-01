@@ -1,11 +1,10 @@
 /*
 SQLyog Community v13.1.6 (64 bit)
-MySQL - 10.4.11-MariaDB : Database - prodavnica_odece
+MySQL - 10.4.11-MariaDB : Database - prodavnica_tehnike
 *********************************************************************
 */
 
 /*!40101 SET NAMES utf8 */;
-
 
 /*!40101 SET SQL_MODE=''*/;
 
@@ -13,9 +12,9 @@ MySQL - 10.4.11-MariaDB : Database - prodavnica_odece
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`prodavnica_odece` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`prodavnica_tehnike` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
-USE `prodavnica_odece`;
+USE `prodavnica_tehnike`;
 
 /*Table structure for table `cart` */
 
@@ -30,20 +29,12 @@ CREATE TABLE `cart` (
   PRIMARY KEY (`id`),
   KEY `FK_756f53ab9466eb52a52619ee019` (`userId`),
   CONSTRAINT `FK_756f53ab9466eb52a52619ee019` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `cart` */
 
 insert  into `cart`(`id`,`userId`,`executed`,`adress`,`phone`) values 
-(2,1,0,'Beogradska 7','0628916761'),
-(3,1,0,'Beogradska 7','0628916761'),
-(4,1,0,'ergdthfj','3456475'),
-(5,1,0,'Beogradska 7','0628916761'),
-(6,1,0,'erfsgfdh','32467'),
-(7,1,0,'Beogradska 7','0628916761'),
-(8,1,0,'Beogradska 7','0628916761'),
-(9,1,0,'Beogradska 7','0628916761'),
-(10,1,0,'Beogradska 7','0628916761');
+(12,1,0,'Beogradska 7','0628916761');
 
 /*Table structure for table `migrations` */
 
@@ -76,34 +67,14 @@ CREATE TABLE `order` (
   `cartId` int(11) NOT NULL,
   PRIMARY KEY (`productId`,`cartId`),
   KEY `FK_fe3963d525b2ee03ba471953a7c` (`cartId`),
-  CONSTRAINT `FK_88991860e839c6153a7ec878d39` FOREIGN KEY (`productId`) REFERENCES `product` (`id`) ON UPDATE NO ACTION,
+  CONSTRAINT `FK_88991860e839c6153a7ec878d39` FOREIGN KEY (`productId`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `FK_fe3963d525b2ee03ba471953a7c` FOREIGN KEY (`cartId`) REFERENCES `cart` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `order` */
 
 insert  into `order`(`ammount`,`productId`,`cartId`) values 
-(2,1,3),
-(1,2,5),
-(3,2,6),
-(2,2,7),
-(3,2,8),
-(1,2,9),
-(1,2,10),
-(2,3,3),
-(2,3,4),
-(1,5,2),
-(1,5,3),
-(4,5,4),
-(2,5,5),
-(2,5,7),
-(3,5,8),
-(1,5,9),
-(1,5,10),
-(4,10,6),
-(2,11,8),
-(1,11,9),
-(1,11,10);
+(2,12,12);
 
 /*Table structure for table `product` */
 
@@ -119,21 +90,13 @@ CREATE TABLE `product` (
   PRIMARY KEY (`id`),
   KEY `FK_618194d24a7ea86a165d7ec628e` (`productCategoryId`),
   CONSTRAINT `FK_618194d24a7ea86a165d7ec628e` FOREIGN KEY (`productCategoryId`) REFERENCES `product_category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `product` */
 
 insert  into `product`(`id`,`name`,`description`,`price`,`productCategoryId`,`picture`) values 
-(1,'farmerks','neka izmena',42,1,'slika.jpg'),
-(2,'majica2','aefsgr',345,2,'slika.jpg'),
-(3,'haljina','fasgfh',1000,1,'slika.jpg'),
-(4,'adsfs','afdg',34,1,'slika.jpg'),
-(5,'afd','fadsg',345,2,'slika.jpg'),
-(6,'adfds','faesgrt',9,2,'gallery7.jpg'),
-(7,'afeg','afdsgf',6,1,'gallery6.jpg'),
-(8,'afeg','afdsgf',6,1,'gallery6.jpg'),
-(10,'novi proizvod','afsgrdthfyj',234,2,'Capture.PNG'),
-(11,'Nova haljina','sdvfbgfgjm',1000,1,'концептуални модел.PNG');
+(12,'Samsung galaxy S10','6GB ram, octa-core ...',70000,2,'download.jpg'),
+(13,'Samsung Smart televizor 43\" UE43TU8072UXXH','Dijagolana odličnog smart televizora od 43\"\n4K UHD rezolucija sa 4 puta više piksela\nCrystal 4K procesorska snaga za jasniji prikaz slika\nA klasa energetske efikasnosti\nTizen operativni sistem',50000,1,'download (1).jpg');
 
 /*Table structure for table `product_category` */
 
@@ -143,14 +106,16 @@ CREATE TABLE `product_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `product_category` */
 
 insert  into `product_category`(`id`,`name`) values 
-(1,'haljine'),
-(2,'farmerke'),
-(3,'majice');
+(1,'televizor'),
+(2,'telefon'),
+(3,'laptop'),
+(4,'slusalice'),
+(5,'tastatura');
 
 /*Table structure for table `user` */
 

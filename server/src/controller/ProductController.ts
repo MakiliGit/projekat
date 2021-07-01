@@ -6,7 +6,7 @@ import * as path from 'path';
 import * as multer from 'multer';
 import * as fs from 'fs'
 
-const upload = multer({ dest: path.resolve('img/') })
+
 
 export class ProductController implements GenericController {
 

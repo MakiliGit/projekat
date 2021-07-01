@@ -8,7 +8,7 @@ export class UserController implements GenericController {
 
 
 
-    async check(request: Request, response: Response, next: NextFunction) {
+    async check(request: Request, response: Response) {
         const user = (request.session as any).user as User | undefined;
 
         if (!user) {
@@ -19,7 +19,7 @@ export class UserController implements GenericController {
         response.json(user);
     }
 
-    async register(request: Request, response: Response, next: NextFunction) {
+    async register(request: Request, response: Response) {
         const userRepository = getRepository(User);
         const users = await userRepository.find({
             where: {
@@ -43,9 +43,10 @@ export class UserController implements GenericController {
 
     }
 
-    async login(request: Request, response: Response, next: NextFunction) {
+    async login(request: Request, response: Response) {
         const userRepository = getRepository(User);
         const user = await userRepository.findOne({
+
             where: {
                 username: request.body.username,
                 password: request.body.password
@@ -65,7 +66,7 @@ export class UserController implements GenericController {
         response.json(user);
     }
 
-    async logout(request: Request, response: Response, next: NextFunction) {
+    async logout(request: Request, response: Response) {
         request.session.destroy((err) => {
             if (err)
                 response.sendStatus(500);
